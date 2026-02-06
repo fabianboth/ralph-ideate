@@ -1,0 +1,47 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash",
+      "Edit",
+      "Write",
+      "WebSearch",
+      "WebFetch"
+    ],
+    "deny": [
+      "Bash(git reset --hard:*)",
+      "Bash(git clean:*)",
+      "Bash(git branch -D:*)",
+      "Bash(git rebase:*)",
+      "Bash(git push --force:*)",
+      "Bash(git push -f:*)"
+    ],
+    "ask": [
+      "Bash(rm:*)",
+      "Bash(rmdir:*)",
+      "Bash(del:*)",
+      "Bash(git stash:*)"
+    ]
+  },
+  "hooks": {
+    "PermissionRequest": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "powershell -NoProfile -ExecutionPolicy Bypass -Command \"Add-Type -TypeDefinition 'using System;using System.Runtime.InteropServices;public class FlashWindow{[DllImport(\\\"user32.dll\\\")]public static extern bool FlashWindowEx(ref FLASHWINFO pwfi);[StructLayout(LayoutKind.Sequential)]public struct FLASHWINFO{public uint cbSize;public IntPtr hwnd;public uint dwFlags;public uint uCount;public uint dwTimeout;}}' -EA SilentlyContinue; $w=Get-Process Antigravity|?{$_.MainWindowHandle -ne 0}|Select -First 1; $f=New-Object FlashWindow+FLASHWINFO; $f.cbSize=32; $f.hwnd=$w.MainWindowHandle; $f.dwFlags=15; $f.uCount=0; $f.dwTimeout=0; [FlashWindow]::FlashWindowEx([ref]$f); Import-Module BurntToast; New-BurntToastNotification -Text 'Claude needs your input'\""
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "powershell -NoProfile -ExecutionPolicy Bypass -Command \"Add-Type -TypeDefinition 'using System;using System.Runtime.InteropServices;public class FlashWindow{[DllImport(\\\"user32.dll\\\")]public static extern bool FlashWindowEx(ref FLASHWINFO pwfi);[StructLayout(LayoutKind.Sequential)]public struct FLASHWINFO{public uint cbSize;public IntPtr hwnd;public uint dwFlags;public uint uCount;public uint dwTimeout;}}' -EA SilentlyContinue; $w=Get-Process Antigravity|?{$_.MainWindowHandle -ne 0}|Select -First 1; $f=New-Object FlashWindow+FLASHWINFO; $f.cbSize=32; $f.hwnd=$w.MainWindowHandle; $f.dwFlags=15; $f.uCount=0; $f.dwTimeout=0; [FlashWindow]::FlashWindowEx([ref]$f); Import-Module BurntToast; New-BurntToastNotification -Text 'Claude Code finished'\""
+          }
+        ]
+      }
+    ]
+  }
+}

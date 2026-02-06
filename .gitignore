@@ -1,0 +1,35 @@
+# build output
+dist/
+.ruff_cache
+
+# dependencies
+node_modules/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+.venv/
+venv/
+
+# logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# environment variables
+.env
+.env.*
+
+# macOS-specific files
+.DS_Store
+
+# IDE
+.idea/
+.vscode/settings.json
+
+# Misc
+specs/
+.reviews/

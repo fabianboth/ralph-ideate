@@ -1,0 +1,99 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "reviewloop"
+version = "0.3.1"
+description = "Autonomous review loop - automates the review-fix-push cycle"
+readme = "README_PYPI.md"
+license = "MIT"
+requires-python = ">=3.13"
+authors = [
+    { name = "Fabian Both" },
+]
+keywords = ["code-review", "automation", "cli", "developer-tools", "ai"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Environment :: Console",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Software Development :: Quality Assurance",
+    "Typing :: Typed",
+]
+dependencies = ["typer", "rich", "readchar"]
+
+[project.urls]
+Homepage = "https://github.com/fabianboth/autonomous-review-loop"
+Repository = "https://github.com/fabianboth/autonomous-review-loop.git"
+Issues = "https://github.com/fabianboth/autonomous-review-loop/issues"
+
+[project.scripts]
+reviewloop = "reviewloop_cli.cli:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/reviewloop_cli"]
+
+[dependency-groups]
+dev = [
+    "pyright>=1.1.408",
+    "ruff>=0.15.0",
+]
+
+[tool.pyright]
+pythonVersion = "3.13"
+typeCheckingMode = "strict"
+include = ["src/reviewloop_cli"]
+exclude = ["**/__pycache__", ".venv"]
+reportPrivateUsage = false
+reportOverlappingOverload = true
+reportUninitializedInstanceVariable = true
+reportUnnecessaryTypeIgnoreComment = true
+reportDeprecated = "warning"
+
+[tool.ruff]
+target-version = "py313"
+line-length = 120
+fix = true
+src = ["scripts", "src"]
+extend-exclude = [".venv", "specs", ".specify"]
+
+[tool.ruff.lint]
+select = ["ALL"]
+ignore = [
+    "D",       # docstrings - too strict for CLI scripts
+    "COM812",  # trailing comma - conflicts with formatter
+    "ISC001",  # implicit string concat - conflicts with formatter
+    "EM101",   # exception message - allow inline strings
+    "EM102",   # exception message f-string
+    "TRY003",  # long exception messages
+    "PLR0913", # too many arguments
+    "FBT001",  # boolean positional arg
+    "FBT002",  # boolean default arg
+    "G004",    # logging f-string
+    "RET504",  # unnecessary assignment before return
+    "RET505",  # unnecessary else after return
+    "PLR2004", # magic values
+]
+unfixable = ["F401"]
+
+[tool.ruff.lint.per-file-ignores]
+"scripts/**" = [
+    "INP001",  # implicit namespace package
+    "T201",    # print statements (expected in CLI)
+    "S603",    # subprocess call
+    "S607",    # partial executable path
+    "BLE001",  # blind exception
+]
+"src/**" = [
+    "T201",    # print statements (expected in CLI)
+]
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+skip-magic-trailing-comma = false
+line-ending = "lf"
