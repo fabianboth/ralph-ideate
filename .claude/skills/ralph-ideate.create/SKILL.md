@@ -2,7 +2,7 @@
 name: ralph-ideate.create
 description: Create a new brainstorming domain from a description - synthesizes DESCRIPTION.md with quality review.
 argument-hint: [describe your brainstorming domain]
-allowed-tools: Write, Edit, Bash(mkdir *), Bash(ls *), Glob
+allowed-tools: Write, Edit, Bash(mkdir *), Bash(ls *), Bash(touch *), Glob
 ---
 
 ## Create a New Brainstorming Domain

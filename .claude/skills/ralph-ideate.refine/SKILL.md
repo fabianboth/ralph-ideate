@@ -80,4 +80,4 @@ Summarize what was changed:
 - Explain why each change improves the description
 - Note any remaining suggestions the user may want to consider in the future
 
-If this was a full quality review with no changes needed, inform the user that the description is already strong and explain why it meets quality criteria.
+If this was a full-quality review with no changes needed, inform the user that the description is already strong and explain why it meets quality criteria.
