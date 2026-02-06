@@ -2,7 +2,7 @@
 set -euo pipefail
 
 PROMPT_PARTS=()
-MAX_ITERATIONS=0
+MAX_ITERATIONS=10
 DOMAIN_PATH=""
 
 while [[ $# -gt 0 ]]; do
@@ -16,7 +16,7 @@ USAGE:
 
 OPTIONS:
   --domain <path>          Path to domain directory (required)
-  --max-iterations <n>     Maximum iterations before auto-stop (default: unlimited)
+  --max-iterations <n>     Maximum iterations before auto-stop (default: 10, 0 = unlimited)
   -h, --help               Show this help message
 
 DESCRIPTION:
@@ -24,8 +24,8 @@ DESCRIPTION:
   The stop hook will prevent exit and feed the prompt back each iteration.
 
 EXAMPLES:
-  setup-ralph-ideate.sh --domain src/saas-tools "Explore ideas"
-  setup-ralph-ideate.sh --domain src/saas-tools --max-iterations 10 "Explore ideas"
+  setup-ralph-ideate.sh --domain ideate/saas-tools "Explore ideas"
+  setup-ralph-ideate.sh --domain ideate/saas-tools --max-iterations 20 "Focus on B2B tools"
 HELP_EOF
       exit 0
       ;;
@@ -66,27 +66,36 @@ DOMAIN_PATH="${DOMAIN_PATH%/}"
 DOMAIN_PATH="${DOMAIN_PATH%/DESCRIPTION.md}"
 
 if [[ ! -f "$DOMAIN_PATH/DESCRIPTION.md" ]]; then
-  echo "Error: No DESCRIPTION.md found at $DOMAIN_PATH/DESCRIPTION.md" >&2
+  echo "Error: No DESCRIPTION.md found at '$DOMAIN_PATH/DESCRIPTION.md'" >&2
   echo "" >&2
   echo "  Create a domain first with: /ralph-ideate.create <domain-name>" >&2
   exit 1
 fi
 
-PROMPT="${PROMPT_PARTS[*]:-}"
+USER_PROMPT="${PROMPT_PARTS[*]:-}"
+
+# Build the loop prompt with @DESCRIPTION.md reference
+DESCRIPTION_REF="@${DOMAIN_PATH}/DESCRIPTION.md"
+if [[ -n "$USER_PROMPT" ]]; then
+  LOOP_PROMPT="${DESCRIPTION_REF} ${USER_PROMPT}"
+else
+  LOOP_PROMPT="${DESCRIPTION_REF} Explore and brainstorm ideas for this domain. Follow the phases in the skill instructions."
+fi
 
 mkdir -p .claude
 
-cat > .claude/ralph-ideate.local.md <<EOF
----
-active: true
-iteration: 1
-max_iterations: $MAX_ITERATIONS
-domain_path: $DOMAIN_PATH
-started_at: "$(date -u +%Y-%m-%dT%H:%M:%SZ)"
----
-
-$PROMPT
-EOF
+# Write state file using printf to avoid heredoc expansion issues with user prompt
+{
+  echo "---"
+  echo "active: true"
+  echo "iteration: 1"
+  printf "max_iterations: %s\n" "$MAX_ITERATIONS"
+  printf "domain_path: %s\n" "$DOMAIN_PATH"
+  printf 'started_at: "%s"\n' "$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+  echo "---"
+  echo ""
+  printf "%s\n" "$LOOP_PROMPT"
+} > .claude/ralph-ideate.local.md
 
 DOMAIN_NAME=$(basename "$DOMAIN_PATH")
 
@@ -95,9 +104,8 @@ Ralph Ideate loop activated!
 
 Domain: $DOMAIN_NAME ($DOMAIN_PATH)
 Iteration: 1
-Max iterations: $(if [[ $MAX_ITERATIONS -gt 0 ]]; then echo $MAX_ITERATIONS; else echo "unlimited"; fi)
+Max iterations: $(if [[ "$MAX_ITERATIONS" -gt 0 ]]; then echo "$MAX_ITERATIONS"; else echo "unlimited"; fi)
 
 The stop hook will feed the prompt back after each iteration.
-To monitor: head -10 .claude/ralph-ideate.local.md
 
 EOF

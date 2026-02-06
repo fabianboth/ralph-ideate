@@ -46,6 +46,8 @@ Then proceed with the first iteration below.
 3. List and read all files in `<domain>/verified/` - ideas that passed scrutiny
 4. List and read all files in `<domain>/discarded/` - rejected ideas (avoid repeating these)
 
+**Domain Description Updates**: If the user explicitly requests changes to the domain description (e.g., "update the description to...", "add a constraint about...", "the description should mention..."), update `<domain>/DESCRIPTION.md` accordingly and report the change in the iteration summary. Only update when explicitly asked — do not proactively modify the description based on observed patterns.
+
 **Step 2: Determine Phase**
 
 Based on the current state, decide what to do this iteration:

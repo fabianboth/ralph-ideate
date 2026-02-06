@@ -14,6 +14,7 @@ SKILL_FILES = [
     ".claude/skills/ralph-ideate.explore/SKILL.md",
     ".claude/skills/ralph-ideate.explore/scripts/setup-ralph-ideate.sh",
     ".claude/skills/ralph-ideate.explore/scripts/loop-context.sh",
+    ".claude/skills/ralph-ideate.refine/SKILL.md",
 ]
 
 TEMPLATE_TO_SKILL: list[tuple[str, str]] = [
@@ -27,6 +28,7 @@ TEMPLATE_TO_SKILL: list[tuple[str, str]] = [
         "ralph-ideate.explore/scripts/loop-context.sh",
         ".claude/skills/ralph-ideate.explore/scripts/loop-context.sh",
     ),
+    ("ralph-ideate.refine/SKILL.md", ".claude/skills/ralph-ideate.refine/SKILL.md"),
 ]
 
 
