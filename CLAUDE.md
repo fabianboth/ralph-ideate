@@ -1,6 +1,6 @@
 # CLAUDE.md
 
-Ralph Ideate - automates the brainstorming cycle using the Ralph Loop (ideate, extend, research, scrutinize, repeat).
+Ralph Ideate - automates the brainstorming cycle using the Ralph Ideate Loop (ideate, extend, research, scrutinize, repeat).
 
 ## CRITICAL: File Editing on Windows
 
@@ -8,10 +8,8 @@ Ralph Ideate - automates the brainstorming cycle using the Ralph Loop (ideate, e
 
 ## Project Structure
 
-- `.claude/skills/ralph-ideate.create/` — Skill: scaffold a new brainstorming domain
-- `.claude/skills/ralph-ideate.explore/` — Skill: run the Ralph Loop (continuous brainstorming)
-- `src/<domain>/` — Brainstorming domains (DESCRIPTION.md, candidates/, verified/, discarded/)
 - `src/ralph_idea_cli/` — CLI package (typer-based), entry point in `cli.py`
+- `src/ralph_idea_cli/templates/` — Bundled skill files installed by `ralph-ideate init`
 - `specs/` — Feature specifications (speckit-managed)
 
 ## Tech Stack
