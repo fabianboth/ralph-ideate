@@ -15,6 +15,7 @@ Ralph Ideate - automates the brainstorming cycle using the Ralph Ideate Loop (id
 ## Tech Stack
 
 - **Python**: 3.13+ with uv (CLI package + project tooling)
+- **Bash**: 4.0+ for ideate loop scripts (bundled in `src/ralph_idea_cli/templates/`)
 - **CLI Framework**: typer, readchar (interactive selection)
 - **Linting/Formatting**: ruff
 - **Type Checking**: pyright (strict mode)

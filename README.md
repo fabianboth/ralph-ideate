@@ -5,7 +5,7 @@
 </div>
 
 <p align="center">
-    <strong>The cycle of ideate, extend, research, scrutinize, repeat - fully automated. <code>ralph-ideate</code> covers ground systematically so you can focus on steering, not grinding.</strong>
+    <strong>Ideate, extend, research, scrutinize, repeat - fully automated. <code>ralph-ideate</code> covers ground systematically so you can focus on steering, not grinding.</strong>
 </p>
 
 <p align="center">
@@ -16,57 +16,69 @@
 
 ---
 
-## The Ralph Ideate Loop
+## Installation
 
-The Ralph Ideate Loop is a structured brainstorming methodology that cycles through four phases:
-
-1. **Ideate:** Generate and capture ideas
-2. **Extend:** Build on and expand promising concepts
-3. **Research:** Investigate and validate with real-world data
-4. **Scrutinize:** Critically evaluate and challenge assumptions
-
-Then repeat. Each pass deepens understanding rather than forcing premature convergence.
-
-## Features
-
-- **Infinite exploration:** Covers ground systematically rather than pursuing singular solutions
-- **Interactive steering:** Inject thoughts and feedback during active processing to redirect focus
-- **Verified validation:** Ideas progress through documented phases with structured assessment
-
-## Usage
-
-Ralph Ideate runs as [Claude Code](https://docs.anthropic.com/en/docs/claude-code) skills. In any repository with these skills installed:
-
-### Create a brainstorming domain
-
+```bash
+uv tool install ralph-ideate
 ```
+
+```bash
+ralph-ideate init
+```
+
+## Getting Started
+
+### 1. Create a brainstorming domain
+
+```text
 /ralph-ideate.create saas-tools
 ```
 
-This scaffolds the domain directory structure and guides you through writing a `DESCRIPTION.md` that defines scope, focus, constraints, and evaluation criteria.
+This scaffolds a domain directory and guides you through writing a `DESCRIPTION.md` that defines scope, focus, and evaluation criteria.
 
-### Explore ideas
+### 2. Explore ideas
+
+```text
+/ralph-ideate.explore ideate/saas-tools
+```
+
+This starts the Ralph Ideate Loop - a continuous cycle that generates candidates, researches pain points with real user evidence, critically evaluates viability, and moves ideas to `verified/` or `discarded/`.
+
+Optionally pass a custom prompt and iteration limit:
+
+```text
+/ralph-ideate.explore ideate/saas-tools "Focus on B2B pain points" --max-iterations 20
+```
+
+| Option | Default | Description |
+|--------|---------|-------------|
+| `"custom prompt"` | auto-generated | Focus the brainstorming on a specific angle |
+| `--max-iterations N` | `10` | Auto-stop after N iterations (`0` = unlimited) |
+
+Inject steering feedback between iterations to redirect focus.
+
+## How It Works
+
+Each iteration reads the domain state fresh and decides which phase to execute:
+
+1. **Ideate** - Generate and capture new candidate ideas
+2. **Research** - Validate pain points with real-world evidence
+3. **Scrutinize** - Critically evaluate viability and differentiation
+4. **Decide** - Verify, revise, or discard each candidate
+
+Ideas progress through a structured pipeline:
 
 ```
-/ralph-ideate.explore src/saas-tools --max-iterations 10
-```
-
-This starts the Ralph Ideate Loop — a continuous cycle that generates candidate ideas, researches pain points with real user evidence, critically evaluates viability, and moves ideas to `verified/` or `discarded/`. Each iteration reads the current state fresh and decides which phase to execute.
-
-Omit `--max-iterations` to run indefinitely. Inject steering feedback between iterations to redirect focus.
-
-### Domain structure
-
-```
-src/<domain>/
+ideate/<domain>/
 ├── DESCRIPTION.md    # Scope, focus, constraints
 ├── candidates/       # Ideas under evaluation
 ├── verified/         # Ideas that passed scrutiny
 └── discarded/        # Rejected ideas with reasoning
 ```
 
-## Installation
+## Features
 
-```bash
-uv tool install ralph-ideate
-```
+- **Systematic exploration:** Covers ground broadly rather than pursuing singular solutions
+- **Interactive steering:** Inject thoughts and feedback during active processing to redirect focus
+- **Evidence-based validation:** Ideas must survive research with real user complaints, not assumptions
+- **Multi-pass refinement:** Each iteration deepens understanding rather than forcing premature convergence

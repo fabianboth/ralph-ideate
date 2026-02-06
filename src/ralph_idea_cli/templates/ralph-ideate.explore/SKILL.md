@@ -1,7 +1,7 @@
 ---
 name: ralph-ideate.explore
-description: Run the Ralph Ideate Loop to brainstorm, research, and evaluate ideas in a domain. Use when asked to explore or brainstorm ideas.
-argument-hint: <domain-path> [--max-iterations N]
+description: Run the Ralph Ideate Loop - brainstorm, research, and evaluate ideas in a domain. Use when asked to explore or brainstorm ideas.
+argument-hint: <domain-path> ["custom prompt"] [--max-iterations N]
 allowed-tools: Read, Write, Edit, Bash, WebSearch, WebFetch, Glob, Grep
 disable-model-invocation: true
 hooks:
@@ -11,20 +11,25 @@ hooks:
           command: bash .claude/skills/ralph-ideate.explore/scripts/loop-context.sh
 ---
 
-## Ralph Ideate — Automated Brainstorming Loop
+## Ralph Ideate - Automated Brainstorming Loop
 
 You are running the Ralph Ideate Loop: an automated brainstorming cycle that systematically explores, researches, and evaluates business ideas.
+
+**IMPORTANT - Do not touch the state file**: The file `.claude/ralph-ideate.local.md` is managed exclusively by the bash scripts. You MUST NOT read, edit, or reference this file. The stop hook handles loop iteration and prompt replay automatically.
 
 ### First: Initialize the Loop
 
 Parse `$ARGUMENTS` to extract:
-- **Domain path**: The first non-flag argument (e.g., `src/saas-tools`)
-- **--max-iterations N**: Optional flag to limit iterations (default: unlimited = 0)
+- **Domain path**: The first non-flag, non-quoted argument (e.g., `ideate/saas-tools`)
+- **Custom prompt** (optional): A quoted string providing brainstorming focus (e.g., `"Focus on B2B developer tools"`)
+- **--max-iterations N** (optional): Maximum number of iterations (default: 10)
 
-Run the setup script:
+Run the setup script with the extracted values:
 ```bash
-bash .claude/skills/ralph-ideate.explore/scripts/setup-ralph-ideate.sh --domain <domain-path> --max-iterations <N-or-0> "Explore ideas in <domain-path>"
+bash .claude/skills/ralph-ideate.explore/scripts/setup-ralph-ideate.sh --domain <domain-path> --max-iterations <N-or-10> "<custom-prompt-if-provided>"
 ```
+
+If no custom prompt was provided, omit the prompt argument - the setup script will use a sensible default.
 
 Then proceed with the first iteration below.
 
@@ -32,12 +37,14 @@ Then proceed with the first iteration below.
 
 ### Each Iteration: The Ralph Ideate Loop
 
+**Reminder**: Never read or edit `.claude/ralph-ideate.local.md` - it is system-managed.
+
 **Step 1: Read Current State**
 
-1. Read `<domain>/DESCRIPTION.md` — understand scope, focus, constraints, and what makes a good opportunity
-2. List and read all files in `<domain>/candidates/` — ideas under evaluation
-3. List and read all files in `<domain>/verified/` — ideas that passed scrutiny
-4. List and read all files in `<domain>/discarded/` — rejected ideas (avoid repeating these)
+1. Read `<domain>/DESCRIPTION.md` - understand scope, focus, constraints, and what makes a good opportunity
+2. List and read all files in `<domain>/candidates/` - ideas under evaluation
+3. List and read all files in `<domain>/verified/` - ideas that passed scrutiny
+4. List and read all files in `<domain>/discarded/` - rejected ideas (avoid repeating these)
 
 **Step 2: Determine Phase**
 
@@ -49,7 +56,7 @@ Based on the current state, decide what to do this iteration:
 - **Candidates have been scrutinized** → Go to **Phase 5: Decision**
 - **Mix of states** → Prioritize: research unresearched candidates first, then scrutinize researched ones, then generate new ideas to keep the pipeline full
 
-A good iteration touches multiple phases — generate some new ideas AND research/scrutinize existing ones. Don't only do one thing.
+A good iteration touches multiple phases - generate some new ideas AND research/scrutinize existing ones. Don't only do one thing.
 
 ---
 
@@ -63,7 +70,7 @@ Generate 3-5 new candidate ideas. Create a markdown file for each in `<domain>/c
 ```markdown
 # <Idea Name>
 
-<Brief description of the core concept — what does this do?>
+<Brief description of the core concept - what does this do?>
 
 ## Hypothesized Pain Point
 
@@ -77,8 +84,8 @@ Generate 3-5 new candidate ideas. Create a markdown file for each in `<domain>/c
 **Creativity guidelines**:
 - Explore new sectors, interpolate between existing ideas, try new angles
 - Extrapolate to adjacent markets and near-term trends
-- Avoid iterating on the same idea space — use creative techniques to think outside the box
-- Check `discarded/` before creating — don't repeat rejected ideas (you may re-evaluate from a genuinely different angle, but don't rehash the same concept)
+- Avoid iterating on the same idea space - use creative techniques to think outside the box
+- Check `discarded/` before creating - don't repeat rejected ideas (you may re-evaluate from a genuinely different angle, but don't rehash the same concept)
 
 ---
 
@@ -88,7 +95,7 @@ For each candidate that lacks a "Pain Point Evidence" section, conduct web resea
 
 **Core principle: Verified Pain Points First**
 
-An idea is only valuable if it solves a real pain point — and "real" means **verified through research**, not assumed. Ask:
+An idea is only valuable if it solves a real pain point - and "real" means **verified through research**, not assumed. Ask:
 - Is this pain point verified? (Evidence of real people experiencing this?)
 - Is it urgent? (Do they need it solved now?)
 - Is it frequent? (Happens often enough to matter?)
@@ -120,8 +127,8 @@ Add a **Pain Point Evidence** section to the idea file:
 ```markdown
 ## Pain Point Evidence
 
-- "<Direct quote or paraphrased complaint>" — [Source](url)
-- "<Another user complaint>" — [Source](url)
+- "<Direct quote or paraphrased complaint>" - [Source](url)
+- "<Another user complaint>" - [Source](url)
 - Volume: <indicator, e.g., "50+ Reddit threads", "common 1-star review theme">
 ```
 
@@ -134,7 +141,7 @@ Add a **Pain Point Evidence** section to the idea file:
 - Does something similar already exist?
 - What's the competitive landscape?
 - Are there failed attempts? Why did they fail?
-- Competition validates demand — don't auto-discard, look for gaps
+- Competition validates demand - don't auto-discard, look for gaps
 
 Add a **Research Notes** section with competitive findings.
 
