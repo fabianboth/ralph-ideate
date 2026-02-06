@@ -6,7 +6,7 @@ build-backend = "hatchling.build"
 name = "ralph-idea"
 version = "0.1.0"
 description = "Ralph Idea Machine - automates the brainstorming cycle using the Ralph Loop"
-readme = "README_PYPI.md"
+readme = "README.md"
 license = "MIT"
 requires-python = ">=3.13"
 authors = [
