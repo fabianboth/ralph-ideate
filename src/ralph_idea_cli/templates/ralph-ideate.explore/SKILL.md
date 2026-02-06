@@ -36,7 +36,7 @@ Run the setup script with the extracted values:
 bash .claude/skills/ralph-ideate.explore/scripts/setup-ralph-ideate.sh --domain <domain-path> --max-iterations 20 "<custom-prompt-if-provided>"
 ```
 
-Replace `20` with your desired limit, or use `0` for unlimited iterations. If no custom prompt was provided, omit the prompt argument - the setup script will use a sensible default.
+Replace `20` with your desired iteration count. If no custom prompt was provided, omit the prompt argument - the setup script will use a sensible default.
 
 Then proceed with the first iteration below.
 

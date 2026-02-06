@@ -38,7 +38,7 @@ if [[ ! "$ITERATION" =~ ^[0-9]+$ ]] || [[ ! "$MAX_ITERATIONS" =~ ^[0-9]+$ ]]; th
 fi
 
 # Stop if max iterations reached
-if [[ "$MAX_ITERATIONS" -gt 0 ]] && [[ "$ITERATION" -ge "$MAX_ITERATIONS" ]]; then
+if [[ "$ITERATION" -ge "$MAX_ITERATIONS" ]]; then
   echo "Ralph Ideate: Max iterations ($MAX_ITERATIONS) reached." >&2
   rm "$RALPH_STATE_FILE"
   exit 0
@@ -65,11 +65,7 @@ fi
 
 DOMAIN_NAME=$(basename "$DOMAIN_PATH")
 
-if [[ "$MAX_ITERATIONS" -gt 0 ]]; then
-  SYSTEM_MSG="Ralph iteration $NEXT_ITERATION of $MAX_ITERATIONS | Domain: $DOMAIN_NAME"
-else
-  SYSTEM_MSG="Ralph iteration $NEXT_ITERATION | Domain: $DOMAIN_NAME"
-fi
+SYSTEM_MSG="Ralph iteration $NEXT_ITERATION of $MAX_ITERATIONS | Domain: $DOMAIN_NAME"
 
 sleep 1
 # Output JSON to block exit and continue loop

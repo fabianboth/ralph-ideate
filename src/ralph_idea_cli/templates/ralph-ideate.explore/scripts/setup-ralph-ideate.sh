@@ -16,7 +16,7 @@ USAGE:
 
 OPTIONS:
   --domain <path>          Path to domain directory (required)
-  --max-iterations <n>     Maximum iterations before auto-stop (default: 20, 0 = unlimited)
+  --max-iterations <n>     Maximum iterations before auto-stop (default: 20)
   -h, --help               Show this help message
 
 DESCRIPTION:
@@ -34,8 +34,8 @@ HELP_EOF
         echo "Error: --max-iterations requires a number argument" >&2
         exit 1
       fi
-      if ! [[ "$2" =~ ^[0-9]+$ ]]; then
-        echo "Error: --max-iterations must be a positive integer or 0, got: $2" >&2
+      if ! [[ "$2" =~ ^[1-9][0-9]*$ ]]; then
+        echo "Error: --max-iterations must be a positive integer (>= 1), got: $2" >&2
         exit 1
       fi
       MAX_ITERATIONS="$2"
@@ -104,7 +104,7 @@ Ralph Ideate loop activated!
 
 Domain: $DOMAIN_NAME ($DOMAIN_PATH)
 Iteration: 1
-Max iterations: $(if [[ "$MAX_ITERATIONS" -gt 0 ]]; then echo "$MAX_ITERATIONS"; else echo "unlimited"; fi)
+Max iterations: $MAX_ITERATIONS
 
 The stop hook will feed the prompt back after each iteration.
 
