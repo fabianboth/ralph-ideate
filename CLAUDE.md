@@ -1,6 +1,6 @@
 # CLAUDE.md
 
-Ralph Idea Machine - automates the brainstorming cycle using the Ralph Loop (ideate, extend, research, scrutinize, repeat).
+Ralph Ideate - automates the brainstorming cycle using the Ralph Loop (ideate, extend, research, scrutinize, repeat).
 
 ## CRITICAL: File Editing on Windows
 

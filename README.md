@@ -1,17 +1,17 @@
 <div align="center">
-    <img src="https://raw.githubusercontent.com/fabianboth/ralph-idea-machine/main/assets/ralph_loop.webp" alt="Ralph Idea Machine" width="450"/>
-    <h1>Ralph Idea Machine</h1>
+    <img src="https://raw.githubusercontent.com/fabianboth/ralph-ideate/main/assets/ralph_loop.webp" alt="Ralph Ideate" width="450"/>
+    <h1>Ralph Ideate</h1>
     <h3><em>Automate the brainstorming cycle.</em></h3>
 </div>
 
 <p align="center">
-    <strong>The cycle of ideate, extend, research, scrutinize, repeat - fully automated. <code>ralph-idea</code> covers ground systematically so you can focus on steering, not grinding.</strong>
+    <strong>The cycle of ideate, extend, research, scrutinize, repeat - fully automated. <code>ralph-ideate</code> covers ground systematically so you can focus on steering, not grinding.</strong>
 </p>
 
 <p align="center">
-    <a href="https://github.com/fabianboth/ralph-idea-machine/actions/workflows/ci.yml"><img src="https://github.com/fabianboth/ralph-idea-machine/actions/workflows/ci.yml/badge.svg" alt="CI"/></a>
-    <a href="https://pypi.org/project/ralph-idea/"><img src="https://img.shields.io/pypi/v/ralph-idea" alt="PyPI version"/></a>
-    <a href="https://github.com/fabianboth/ralph-idea-machine/blob/main/LICENSE"><img src="https://img.shields.io/github/license/fabianboth/ralph-idea-machine" alt="License"/></a>
+    <a href="https://github.com/fabianboth/ralph-ideate/actions/workflows/ci.yml"><img src="https://github.com/fabianboth/ralph-ideate/actions/workflows/ci.yml/badge.svg" alt="CI"/></a>
+    <a href="https://pypi.org/project/ralph-ideate/"><img src="https://img.shields.io/pypi/v/ralph-ideate" alt="PyPI version"/></a>
+    <a href="https://github.com/fabianboth/ralph-ideate/blob/main/LICENSE"><img src="https://img.shields.io/github/license/fabianboth/ralph-ideate" alt="License"/></a>
 </p>
 
 ---
@@ -36,5 +36,5 @@ Then repeat. Each pass deepens understanding rather than forcing premature conve
 ## Installation
 
 ```bash
-uv tool install ralph-idea
+uv tool install ralph-ideate
 ```
