@@ -71,7 +71,7 @@ Run a quality review or pass specific changes (e.g. `add a constraint about B2B 
 | Option | Default | Description |
 |--------|---------|-------------|
 | `"custom prompt"` | auto-generated | Focus the brainstorming on a specific angle |
-| `--max-iterations N` | `10` | Auto-stop after N iterations (`0` = unlimited) |
+| `--max-iterations N` | `20` | Auto-stop after N iterations (`0` = unlimited) |
 
 Inject steering feedback between iterations to redirect focus.
 

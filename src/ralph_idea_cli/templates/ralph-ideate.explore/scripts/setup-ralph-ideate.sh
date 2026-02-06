@@ -2,7 +2,7 @@
 set -euo pipefail
 
 PROMPT_PARTS=()
-MAX_ITERATIONS=10
+MAX_ITERATIONS=20
 DOMAIN_PATH=""
 
 while [[ $# -gt 0 ]]; do
@@ -16,7 +16,7 @@ USAGE:
 
 OPTIONS:
   --domain <path>          Path to domain directory (required)
-  --max-iterations <n>     Maximum iterations before auto-stop (default: 10, 0 = unlimited)
+  --max-iterations <n>     Maximum iterations before auto-stop (default: 20, 0 = unlimited)
   -h, --help               Show this help message
 
 DESCRIPTION:

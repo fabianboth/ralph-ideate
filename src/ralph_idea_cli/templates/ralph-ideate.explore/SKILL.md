@@ -27,11 +27,11 @@ You are running the Ralph Ideate Loop: an automated brainstorming cycle that evo
 Parse `$ARGUMENTS` to extract:
 - **Domain path**: The first non-flag, non-quoted argument (e.g., `ideate/saas-tools`). Users may use the `@` prefix for autocomplete — strip any leading `@` from the path.
 - **Custom prompt** (optional): A quoted string providing brainstorming focus (e.g., `"Focus on B2B developer tools"`)
-- **--max-iterations N** (optional): Maximum number of iterations (default: 10)
+- **--max-iterations N** (optional): Maximum number of iterations (default: 20)
 
 Run the setup script with the extracted values:
 ```bash
-bash .claude/skills/ralph-ideate.explore/scripts/setup-ralph-ideate.sh --domain <domain-path> --max-iterations <N-or-10> "<custom-prompt-if-provided>"
+bash .claude/skills/ralph-ideate.explore/scripts/setup-ralph-ideate.sh --domain <domain-path> --max-iterations <N-or-20> "<custom-prompt-if-provided>"
 ```
 
 If no custom prompt was provided, omit the prompt argument - the setup script will use a sensible default.
