@@ -3,9 +3,9 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [project]
-name = "ralph-idea"
+name = "ralph-ideate"
 version = "0.1.0"
-description = "Ralph Idea Machine - automates the brainstorming cycle using the Ralph Loop"
+description = "Ralph Ideate - automates the brainstorming cycle using the Ralph Loop"
 readme = "README.md"
 license = "MIT"
 requires-python = ">=3.13"
@@ -27,12 +27,12 @@ classifiers = [
 dependencies = ["typer", "rich", "readchar"]
 
 [project.urls]
-Homepage = "https://github.com/fabianboth/ralph-idea-machine"
-Repository = "https://github.com/fabianboth/ralph-idea-machine.git"
-Issues = "https://github.com/fabianboth/ralph-idea-machine/issues"
+Homepage = "https://github.com/fabianboth/ralph-ideate"
+Repository = "https://github.com/fabianboth/ralph-ideate.git"
+Issues = "https://github.com/fabianboth/ralph-ideate/issues"
 
 [project.scripts]
-ralph-idea = "ralph_idea_cli.cli:main"
+ralph-ideate = "ralph_idea_cli.cli:main"
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/ralph_idea_cli"]

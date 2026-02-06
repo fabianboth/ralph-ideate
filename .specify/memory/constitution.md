@@ -1,4 +1,4 @@
-# Ralph Idea Machine Constitution
+# Ralph Ideate Constitution
 
 ## Core Principles
 

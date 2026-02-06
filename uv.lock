@@ -76,7 +76,7 @@ wheels = [
 ]
 
 [[package]]
-name = "ralph-idea"
+name = "ralph-ideate"
 version = "0.1.0"
 source = { editable = "." }
 dependencies = [
