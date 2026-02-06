@@ -109,6 +109,10 @@ ideate/<domain>/
 - **Evidence-based validation:** Ideas must survive research with real user complaints, not assumptions
 - **Multi-pass refinement:** Each iteration deepens understanding rather than forcing premature convergence
 
+## Acknowledgments
+
+Ralph Ideate is inspired by [Ralph](https://github.com/snarktank/ralph) by [snarktank](https://github.com/snarktank), an autonomous AI agent loop for product development, and [Spec Kit](https://github.com/github/spec-kit) by [GitHub](https://github.com/github), a toolkit for scenario-driven product development. This project adapts the iterative loop concept for structured brainstorming and idea validation.
+
 ## Troubleshooting
 
 ### Skill not appearing in Claude Code

@@ -62,6 +62,10 @@ Each iteration reads the domain state fresh and decides which phase to execute:
 - **Evidence-based validation:** Ideas must survive research with real user complaints, not assumptions
 - **Multi-pass refinement:** Each iteration deepens understanding rather than forcing premature convergence
 
+## Acknowledgments
+
+Inspired by [Ralph](https://github.com/snarktank/ralph) by [snarktank](https://github.com/snarktank).
+
 ## Documentation
 
 For full documentation, troubleshooting, and advanced usage, visit the [GitHub repository](https://github.com/fabianboth/ralph-ideate).
