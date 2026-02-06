@@ -1,6 +1,6 @@
 ---
 name: ralph-ideate.explore
-description: Run the Ralph Loop to brainstorm, research, and evaluate ideas in a domain. Use when asked to explore or brainstorm ideas.
+description: Run the Ralph Ideate Loop to brainstorm, research, and evaluate ideas in a domain. Use when asked to explore or brainstorm ideas.
 argument-hint: <domain-path> [--max-iterations N]
 allowed-tools: Read, Write, Edit, Bash, WebSearch, WebFetch, Glob, Grep
 disable-model-invocation: true

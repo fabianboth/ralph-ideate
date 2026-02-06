@@ -16,9 +16,9 @@
 
 ---
 
-## The Ralph Loop
+## The Ralph Ideate Loop
 
-The Ralph Loop is a structured brainstorming methodology that cycles through four phases:
+The Ralph Ideate Loop is a structured brainstorming methodology that cycles through four phases:
 
 1. **Ideate:** Generate and capture ideas
 2. **Extend:** Build on and expand promising concepts
@@ -51,7 +51,7 @@ This scaffolds the domain directory structure and guides you through writing a `
 /ralph-ideate.explore src/saas-tools --max-iterations 10
 ```
 
-This starts the Ralph Loop — a continuous cycle that generates candidate ideas, researches pain points with real user evidence, critically evaluates viability, and moves ideas to `verified/` or `discarded/`. Each iteration reads the current state fresh and decides which phase to execute.
+This starts the Ralph Ideate Loop — a continuous cycle that generates candidate ideas, researches pain points with real user evidence, critically evaluates viability, and moves ideas to `verified/` or `discarded/`. Each iteration reads the current state fresh and decides which phase to execute.
 
 Omit `--max-iterations` to run indefinitely. Inject steering feedback between iterations to redirect focus.
 
