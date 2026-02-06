@@ -1,5 +1,5 @@
 <div align="center">
-    <img src="assets/ralph_loop.webp" alt="Ralph Idea Machine" width="450"/>
+    <img src="https://raw.githubusercontent.com/fabianboth/ralph-idea-machine/main/assets/ralph_loop.webp" alt="Ralph Idea Machine" width="450"/>
     <h1>Ralph Idea Machine</h1>
     <h3><em>Automate the brainstorming cycle.</em></h3>
 </div>
