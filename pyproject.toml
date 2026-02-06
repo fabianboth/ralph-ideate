@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "ralph-ideate"
-version = "0.1.3"
+version = "0.1.4"
 description = "Ralph Ideate - automates the brainstorming cycle using the Ralph Loop"
 readme = "README_PYPI.md"
 license = "MIT"

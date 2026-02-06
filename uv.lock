@@ -77,7 +77,7 @@ wheels = [
 
 [[package]]
 name = "ralph-ideate"
-version = "0.1.2"
+version = "0.1.4"
 source = { editable = "." }
 dependencies = [
     { name = "readchar" },
