@@ -30,6 +30,9 @@ pnpm-debug.log*
 .idea/
 .vscode/settings.json
 
+# Ralph Ideate loop state (transient)
+.claude/ralph-ideate.local.md
+
 # Misc
 specs/
 .reviews/
