@@ -1,11 +1,11 @@
 <div align="center">
     <img src="https://raw.githubusercontent.com/fabianboth/ralph-ideate/main/assets/ralph_loop.webp" alt="Ralph Ideate" width="450"/>
     <h1>Ralph Ideate</h1>
-    <h3><em>Automate the brainstorming cycle.</em></h3>
+    <h3><em>The Business Idea Machine</em></h3>
 </div>
 
 <p align="center">
-    <strong>Ideate, extend, research, scrutinize, repeat - fully automated. <code>ralph-ideate</code> covers ground systematically so you can focus on steering, not grinding.</strong>
+    <strong><code>ralph-ideate</code> is an autonomous AI agent loop that ideates, extends, researches, scrutinizes, and repeats. It is the ralph loop for business ideas.</strong>
 </p>
 
 <p align="center">
@@ -42,7 +42,7 @@ This installs the skill files into `.claude/skills/` so Claude Code can discover
 /ralph-ideate.create B2B services that agentic AI can fully automate end-to-end
 ```
 
-Describe what you want to brainstorm about — a domain name and `DESCRIPTION.md` are generated automatically.
+Describe what you want to brainstorm about. A domain name and `DESCRIPTION.md` are generated automatically.
 
 ### 2. Explore ideas
 
@@ -50,7 +50,7 @@ Describe what you want to brainstorm about — a domain name and `DESCRIPTION.md
 /ralph-ideate.explore @ideate/agentic-ai-agencies
 ```
 
-Starts the Ralph Ideate Loop — generates candidates, researches pain points, evaluates viability, and moves ideas to `verified/` or `discarded/`.
+Starts the Ralph Ideate Loop. It generates candidates, researches pain points, evaluates viability, and moves ideas to `verified/` or `discarded/`.
 
 ### 3. Refine a domain description
 
@@ -58,7 +58,7 @@ Starts the Ralph Ideate Loop — generates candidates, researches pain points, e
 /ralph-ideate.refine @ideate/agentic-ai-agencies
 ```
 
-Run a quality review or pass specific changes (e.g. `add a constraint about B2B focus`).
+Refine or discuss the search domain's `DESCRIPTION.md` with new insights (e.g. `should we focus more on B2B or B2C?`).
 
 ## Advanced Usage
 
@@ -71,9 +71,9 @@ Run a quality review or pass specific changes (e.g. `add a constraint about B2B 
 | Option | Default | Description |
 |--------|---------|-------------|
 | `"custom prompt"` | auto-generated | Focus the brainstorming on a specific angle |
-| `--max-iterations N` | `20` | Auto-stop after N iterations (`0` = unlimited) |
+| `--max-iterations N` | `20` | Auto-stop after N iterations  |
 
-Inject steering feedback between iterations to redirect focus.
+You can simply write steering feedback or thoughts while iterations are ongoing and it will be picked up.
 
 ### Refine with inline edits
 
@@ -109,10 +109,6 @@ ideate/<domain>/
 - **Evidence-based validation:** Ideas must survive research with real user complaints, not assumptions
 - **Multi-pass refinement:** Each iteration deepens understanding rather than forcing premature convergence
 
-## Acknowledgments
-
-Ralph Ideate is inspired by [Ralph](https://github.com/snarktank/ralph) by [snarktank](https://github.com/snarktank), an autonomous AI agent loop for product development, and [Spec Kit](https://github.com/github/spec-kit) by [GitHub](https://github.com/github), a toolkit for scenario-driven product development. This project adapts the iterative loop concept for structured brainstorming and idea validation.
-
 ## Troubleshooting
 
 ### Skill not appearing in Claude Code
@@ -129,3 +125,7 @@ Ensure uv tools are on your PATH:
 uv tool install ralph-ideate
 ralph-ideate init
 ```
+
+## Acknowledgments
+
+Ralph Ideate is inspired by [Ralph Loop](https://github.com/snarktank/ralph) and [Spec Kit](https://github.com/github/spec-kit). Read more about the motivation in the [idea machine blog post](https://fabianboth.dev/blog/idea-machine/).

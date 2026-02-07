@@ -1,11 +1,11 @@
 <div align="center">
     <img src="https://raw.githubusercontent.com/fabianboth/ralph-ideate/main/assets/ralph_loop.webp" alt="Ralph Ideate" width="450"/>
     <h1>Ralph Ideate</h1>
-    <h3><em>Automate the brainstorming cycle.</em></h3>
+    <h3><em>The Business Idea Machine</em></h3>
 </div>
 
 <p align="center">
-    <strong>Ideate, extend, research, scrutinize, repeat - fully automated. <code>ralph-ideate</code> covers ground systematically so you can focus on steering, not grinding.</strong>
+    <strong><code>ralph-ideate</code> is an autonomous AI agent loop that ideates, extends, researches, scrutinizes, and repeats. It is the ralph loop for business ideas.</strong>
 </p>
 
 <p align="center">
@@ -64,7 +64,7 @@ Each iteration reads the domain state fresh and decides which phase to execute:
 
 ## Acknowledgments
 
-Inspired by [Ralph](https://github.com/snarktank/ralph) by [snarktank](https://github.com/snarktank).
+Inspired by [Ralph Loop](https://github.com/snarktank/ralph) and [Spec Kit](https://github.com/github/spec-kit). Read more about the motivation in the [idea machine blog post](https://fabianboth.dev/blog/idea-machine/).
 
 ## Documentation
 

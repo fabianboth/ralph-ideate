@@ -23,8 +23,10 @@ pnpm-debug.log*
 .env
 .env.*
 
-# macOS-specific files
+# OS-specific files
 .DS_Store
+nul
+NUL
 
 # IDE
 .idea/

@@ -102,6 +102,9 @@ Tell the user the domain has been created and show the structure:
 
 Show the generated DESCRIPTION.md content so the user can review it.
 
-Suggest next steps (use `@` prefix for autocomplete):
-- `/ralph-ideate.explore @ideate/<domain-name>` to start brainstorming ideas
-- `/ralph-ideate.refine @ideate/<domain-name>` to improve the domain description further
+Output these next steps verbatim at the end:
+```
+Next steps:
+- /ralph-ideate.explore @ideate/<domain-name>
+- /ralph-ideate.refine @ideate/<domain-name>
+```
