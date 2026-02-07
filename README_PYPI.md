@@ -5,7 +5,7 @@
 </div>
 
 <p align="center">
-    <strong><code>ralph-ideate</code> is an autonomous AI agent loop that ideates, extends, researches, scrutinizes, and repeats - fully automated. It is the ralph loop for business ideas.</strong>
+    <strong><code>ralph-ideate</code> is an autonomous AI agent loop that ideates, extends, researches, scrutinizes, and repeats. It is the ralph loop for business ideas.</strong>
 </p>
 
 <p align="center">
