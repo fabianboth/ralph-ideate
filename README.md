@@ -16,6 +16,12 @@
 
 ---
 
+## Why Automate Ideation?
+
+Most business ideas start as hunches and die as forgotten notes. The gap between "that could work" and "here's why it does" is filled with research, critical evaluation, and iteration. Work that's tedious to do systematically by hand.
+
+Ralph Ideate closes that gap. You define a domain to explore, and an AI loop takes over: generating candidates, researching real pain points, scrutinizing viability, and deciding what survives. Each iteration builds on the last. You steer the direction; the loop does the legwork.
+
 ## Prerequisites
 
 - [Python](https://www.python.org/) 3.12+
