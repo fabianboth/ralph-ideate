@@ -43,11 +43,12 @@ This installs the skill files into `.claude/skills/` so Claude Code can discover
 ```
 
 Describe what you want to brainstorm about. A domain name and `DESCRIPTION.md` are generated automatically.
+This will setup ideation under `ideate/<your_idea_folder>`
 
 ### 2. Explore ideas
 
 ```text
-/ralph-ideate.explore @ideate/agentic-ai-agencies
+/ralph-ideate.explore @ideate/<your_idea_folder>
 ```
 
 Starts the Ralph Ideate Loop. It generates candidates, researches pain points, evaluates viability, and moves ideas to `verified/` or `discarded/`.
@@ -55,7 +56,7 @@ Starts the Ralph Ideate Loop. It generates candidates, researches pain points, e
 ### 3. Refine a domain description
 
 ```text
-/ralph-ideate.refine @ideate/agentic-ai-agencies
+/ralph-ideate.refine @ideate/<your_idea_folder>
 ```
 
 Refine or discuss the search domain's `DESCRIPTION.md` with new insights (e.g. `should we focus more on B2B or B2C?`).
@@ -65,7 +66,7 @@ Refine or discuss the search domain's `DESCRIPTION.md` with new insights (e.g. `
 ### Explore options
 
 ```text
-/ralph-ideate.explore @ideate/agentic-ai-agencies "Focus on B2B pain points" --max-iterations 20
+/ralph-ideate.explore @ideate/<your_idea_folder> "Focus on B2B pain points" --max-iterations 20
 ```
 
 | Option | Default | Description |
@@ -78,7 +79,7 @@ You can simply write steering feedback or thoughts while iterations are ongoing 
 ### Refine with inline edits
 
 ```text
-/ralph-ideate.refine @ideate/agentic-ai-agencies add a constraint about B2B focus
+/ralph-ideate.refine @ideate/<your_idea_folder> add a constraint about B2B focus
 ```
 
 Without arguments, runs a full quality review. With arguments, applies targeted changes.
