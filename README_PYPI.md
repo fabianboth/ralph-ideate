@@ -1,7 +1,6 @@
 <div align="center">
     <img src="https://raw.githubusercontent.com/fabianboth/ralph-ideate/main/assets/ralph_loop.webp" alt="Ralph Ideate" width="450"/>
-    <h1>Ralph Ideate</h1>
-    <h3><em>The Business Idea Machine</em></h3>
+    <h1>Ralph Ideate: The Business Idea Machine</h1>
 </div>
 
 <p align="center">
@@ -10,7 +9,7 @@
 
 <p align="center">
     <a href="https://github.com/fabianboth/ralph-ideate/actions/workflows/ci.yml"><img src="https://github.com/fabianboth/ralph-ideate/actions/workflows/ci.yml/badge.svg" alt="CI"/></a>
-    <a href="https://pypi.org/project/ralph-ideate/"><img src="https://img.shields.io/pypi/v/ralph-ideate" alt="PyPI version"/></a>
+    <a href="https://pypi.org/project/ralph-ideate/"><img src="https://img.shields.io/pypi/v/ralph-ideate?style=flat" alt="PyPI version"/></a>
     <a href="https://github.com/fabianboth/ralph-ideate/blob/main/LICENSE"><img src="https://img.shields.io/github/license/fabianboth/ralph-ideate" alt="License"/></a>
 </p>
 
@@ -34,6 +33,8 @@ ralph-ideate init
 
 ## Getting Started
 
+All commands are Claude Code slash commands. You create a brainstorming domain under `ideate/`, explore it with the loop, and refine the domain description as you learn more.
+
 ### 1. Create a brainstorming domain
 
 ```text
@@ -43,13 +44,13 @@ ralph-ideate init
 ### 2. Explore ideas
 
 ```text
-/ralph-ideate.explore @ideate/agentic-ai-agencies
+/ralph-ideate.explore @ideate/<your_idea_folder>
 ```
 
 ### 3. Refine a domain description
 
 ```text
-/ralph-ideate.refine @ideate/agentic-ai-agencies
+/ralph-ideate.refine @ideate/<your_idea_folder>
 ```
 
 ## How It Works
@@ -61,7 +62,7 @@ Each iteration reads the domain state fresh and decides which phase to execute:
 3. **Scrutinize** - Critically evaluate viability and differentiation
 4. **Decide** - Verify, revise, or discard each candidate
 
-## Features
+### Features
 
 - **Systematic exploration:** Covers ground broadly rather than pursuing singular solutions
 - **Interactive steering:** Inject thoughts and feedback during active processing to redirect focus

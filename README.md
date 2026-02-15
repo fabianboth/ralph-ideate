@@ -1,7 +1,6 @@
 <div align="center">
     <img src="https://raw.githubusercontent.com/fabianboth/ralph-ideate/main/assets/ralph_loop.webp" alt="Ralph Ideate" width="450"/>
-    <h1>Ralph Ideate</h1>
-    <h3><em>The Business Idea Machine</em></h3>
+    <h1>Ralph Ideate: The Business Idea Machine</h1>
 </div>
 
 <p align="center">
@@ -41,6 +40,8 @@ ralph-ideate init
 This installs the skill files into `.claude/skills/` so Claude Code can discover them.
 
 ## Getting Started
+
+All commands are Claude Code slash commands. You create a brainstorming domain under `ideate/`, explore it with the loop, and refine the domain description as you learn more.
 
 ### 1. Create a brainstorming domain
 
@@ -109,7 +110,7 @@ ideate/<domain>/
 └── discarded/        # Rejected ideas with reasoning
 ```
 
-## Features
+### Features
 
 - **Systematic exploration:** Covers ground broadly rather than pursuing singular solutions
 - **Interactive steering:** Inject thoughts and feedback during active processing to redirect focus
