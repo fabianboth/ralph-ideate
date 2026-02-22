@@ -6,6 +6,8 @@ INITIAL_DELAY=10
 POLL_INTERVAL=15
 DEFAULT_TIMEOUT=600
 RUNNING_STATES=(pending in_progress queued waiting requested)
+FAILURE_STATES=(failure error cancelled timed_out startup_failure action_required stale)
+LAST_CHECKS_JSON=""
 
 die() {
     echo "Error: $1" >&2
@@ -25,27 +27,33 @@ get_pr_number() {
     echo "$pr_number"
 }
 
-# Returns aggregated state: if any check is running, returns that state; otherwise returns the last state
+# Returns aggregated state with priority: failure > running > success
+# Stores raw JSON in LAST_CHECKS_JSON for reuse by get_failed_checks
 get_ci_state() {
     local pr_number="$1"
-    local checks_json states
-    checks_json=$(gh pr checks "$pr_number" --json name,state 2>&1) || die "Failed to fetch PR checks: $checks_json"
+    LAST_CHECKS_JSON=$(gh pr checks "$pr_number" --json name,state 2>&1) || die "Failed to fetch PR checks: $LAST_CHECKS_JSON"
 
-    # Get all check states
-    states=$(echo "$checks_json" | jq -r '[.[] | .state] | if length == 0 then "" else .[] end' 2>/dev/null)
+    local states
+    states=$(echo "$LAST_CHECKS_JSON" | jq -r '[.[] | .state] | if length == 0 then "" else .[] end' 2>/dev/null | tr -d '\r')
 
     [[ -z "$states" ]] && return
 
-    # If any state is a running state, return it (priority: running > completed)
-    local state
+    local state has_running=false
     while IFS= read -r state; do
-        if is_running_state "$state"; then
-            echo "$state"
+        if is_failure_state "$state"; then
+            echo "FAILED"
             return
+        fi
+        if is_running_state "$state"; then
+            has_running=true
         fi
     done <<< "$states"
 
-    # No running states found, return the last state
+    if [[ "$has_running" == "true" ]]; then
+        echo "running"
+        return
+    fi
+
     echo "$states" | tail -n1
 }
 
@@ -56,6 +64,33 @@ is_running_state() {
         [[ "$state" == "$s" ]] && return 0
     done
     return 1
+}
+
+is_failure_state() {
+    local state="${1,,}"
+    local s
+    for s in "${FAILURE_STATES[@]}"; do
+        [[ "$state" == "$s" ]] && return 0
+    done
+    return 1
+}
+
+failure_states_jq_filter() {
+    local filter="["
+    local first=true
+    for s in "${FAILURE_STATES[@]}"; do
+        [[ "$first" == "true" ]] && first=false || filter+=","
+        filter+="\"$s\""
+    done
+    filter+="]"
+    echo "$filter"
+}
+
+print_failed_checks() {
+    local filter
+    filter=$(failure_states_jq_filter)
+    echo "CI failed. Failed checks:"
+    echo "$LAST_CHECKS_JSON" | jq -r --argjson states "$filter" '.[] | select((.state | ascii_downcase) as $s | $states | index($s)) | "  - " + .name' 2>/dev/null | tr -d '\r'
 }
 
 parse_args() {
@@ -85,7 +120,12 @@ main() {
 
     state=$(get_ci_state "$pr_number")
 
-    if [[ -z "$state" ]] || ! is_running_state "$state"; then
+    if [[ "$state" == "FAILED" ]]; then
+        print_failed_checks
+        exit 2
+    fi
+
+    if [[ -z "$state" ]] || [[ "$state" != "running" ]]; then
         echo "No CI checks in progress"
         exit 0
     fi
@@ -105,7 +145,13 @@ main() {
 
         state=$(get_ci_state "$pr_number")
 
-        if [[ -z "$state" ]] || ! is_running_state "$state"; then
+        if [[ "$state" == "FAILED" ]]; then
+            echo ""
+            print_failed_checks
+            exit 2
+        fi
+
+        if [[ -z "$state" ]] || [[ "$state" != "running" ]]; then
             echo ""
             echo "CI completed${state:+ ($state)}"
             exit 0
