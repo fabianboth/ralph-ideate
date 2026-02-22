@@ -1,13 +1,13 @@
 ---
 name: ralph-ideate.create
-description: Create a new brainstorming domain from a description - synthesizes DESCRIPTION.md with quality review.
-argument-hint: [describe your brainstorming domain]
+description: Create a new investment brainstorming domain from a description - synthesizes DESCRIPTION.md with quality review.
+argument-hint: [describe your investment brainstorming domain]
 allowed-tools: Write, Edit, Bash(mkdir *), Bash(ls *), Bash(touch *), Glob
 ---
 
-## Create a New Brainstorming Domain
+## Create a New Investment Brainstorming Domain
 
-You are creating a new brainstorming domain for the Ralph Ideate system. Your job is to take a rough description from the user and synthesize a high-quality domain with a comprehensive DESCRIPTION.md that can guide infinite brainstorming exploration.
+You are creating a new brainstorming domain for the Ralph Ideate system focused on investment opportunities. Your job is to take a rough description from the user and synthesize a high-quality domain with a comprehensive DESCRIPTION.md that can guide infinite investment exploration.
 
 Follow the "do the work, ask only if necessary" pattern: synthesize the best possible result from the input. Only ask the user a question if there is a critical gap that cannot be reasonably defaulted.
 
@@ -15,8 +15,8 @@ Follow the "do the work, ask only if necessary" pattern: synthesize the best pos
 
 The user provided: `$ARGUMENTS`
 
-- **If empty**: Ask the user to describe what they want to brainstorm about. Example prompt: *"What domain do you want to explore? Describe the space, target market, and what kind of opportunities you're looking for."*
-- **If provided**: Treat the entire input as a free-form description of the brainstorming domain. Do NOT treat it as a domain name.
+- **If empty**: Ask the user to describe what they want to explore. Example prompt: *"What investment space do you want to explore? Describe the asset classes, sectors, strategies, or themes you're interested in."*
+- **If provided**: Treat the entire input as a free-form description of the investment brainstorming domain. Do NOT treat it as a domain name.
 
 ### Step 2: Synthesize Domain Description
 
@@ -24,14 +24,14 @@ The user provided: `$ARGUMENTS`
 
 From the user's description, extract and synthesize:
 
-1. **Domain title**: A clear, human-readable title for this brainstorming space
+1. **Domain title**: A clear, human-readable title for this investment exploration space
 2. **One-line summary**: A concise description of what this domain covers
-3. **Focus areas**: Key areas to explore — broad enough to sustain infinite exploration, specific enough to provide direction. Aim for 3-5 areas that open up many angles rather than a long list that constrains.
-4. **Constraints**: Only hard boundaries that truly matter (if the user didn't mention any, note "None stated — explore freely"). Fewer constraints = more creative freedom. Only include what would make an idea clearly out of scope.
-5. **Quality criteria**: A few key signals that distinguish strong ideas from weak ones — not an exhaustive checklist.
-6. **Additional domain-specific sections** (optional): If the domain has a defining characteristic that deserves its own section, add it naturally. For example, an "agentic AI" domain might add a "What Makes a TRULY Agentic Opportunity" section with embedded red flags. Don't force extra sections — only add them when they emerge naturally from the domain context.
+3. **Focus areas**: Key areas to explore — broad enough to sustain infinite exploration, specific enough to provide direction. Aim for 3-5 areas that open up many angles. Think across: asset classes, sectors, geographies, strategies, time horizons, and investment vehicles.
+4. **Constraints**: Only hard boundaries that truly matter (if the user didn't mention any, note "None stated — explore freely"). Examples: risk tolerance limits, excluded asset classes, regulatory boundaries, minimum liquidity requirements. Fewer constraints = more creative freedom.
+5. **Quality criteria**: A few key signals that distinguish strong investment opportunities from weak ones — not an exhaustive checklist. Focus on: thesis clarity, data availability, risk/reward profile, and timing.
+6. **Additional domain-specific sections** (optional): If the domain has a defining characteristic that deserves its own section, add it naturally. For example, a "crypto DeFi" domain might add a "Red Flags for DeFi Investments" section. Don't force extra sections — only add them when they emerge naturally from the domain context.
 
-**Auto-generate a domain name**: Extract 2-4 key terms from the description and compose a kebab-case identifier (e.g., `agentic-ai-agencies`, `vibecoding-cli-tools`). Keep it under ~40 characters.
+**Auto-generate a domain name**: Extract 2-4 key terms from the description and compose a kebab-case identifier (e.g., `tech-growth-stocks`, `real-estate-reits`, `crypto-defi`, `dividend-income`). Keep it under ~40 characters.
 
 **Check for conflicts**: Use Glob to check if `ideate/<domain-name>/` already exists. If it does, propose an alternative name or ask the user to confirm.
 
@@ -39,7 +39,7 @@ From the user's description, extract and synthesize:
 
 Before writing, review your synthesized description against these criteria:
 
-- **Focus breadth**: Are focus areas broad enough to sustain 100+ iterations without becoming repetitive? Would they open up diverse angles rather than funneling into a narrow set of ideas?
+- **Focus breadth**: Are focus areas broad enough to sustain 100+ iterations without becoming repetitive? Do they span multiple asset classes, strategies, or time horizons to open up diverse investment angles?
 - **Constraint minimalism**: Are there only hard boundaries that truly matter? Too many constraints kill creativity — remove any that are "nice to have" rather than essential.
 - **Criteria clarity**: Do the quality criteria give a clear signal for what's strong vs weak? Are they concise enough to be useful without being an exhaustive checklist?
 - **Extra sections**: If you added domain-specific sections, do they emerge naturally from the domain or are they forced? Remove anything that doesn't clearly add value.
@@ -64,39 +64,38 @@ Write `ideate/<domain-name>/DESCRIPTION.md` following this format:
 ```markdown
 # <Domain Title (Human-Readable)>
 
-<Brief one-line description of what this domain covers.>
+<Brief one-line description of the investment exploration space.>
 
 ## Focus
 
-- <Key focus area 1>
-- <Key focus area 2>
+- <Investment sector, asset class, or strategy to explore>
+- <Geographic or market focus>
 - <Additional focus points as needed>
 
 ## Constraints
 
-- <Constraint 1>
-- <Constraint 2>
+- <Risk tolerance, investment horizon, or regulatory constraint>
 - <Additional constraints as needed>
 
 ## What Makes a Good Opportunity
 
-- <Criterion 1>
-- <Criterion 2>
-- <Additional criteria as needed>
+- <Strong, specific thesis backed by data — not vague trends>
+- <Favorable risk/reward with clear downside protection>
+- <Additional investment quality signals as needed>
 
 ## <Optional: Domain-Specific Section>
-(Only if a defining characteristic of this domain deserves its own section — e.g., "What Makes a TRULY Agentic Opportunity" with embedded red flags. Omit if nothing emerges naturally.)
+(Only if a defining characteristic of this domain deserves its own section — e.g., "Red Flags for DeFi Investments" or "Key Macro Indicators to Watch". Omit if nothing emerges naturally.)
 ```
 
 The three core sections (Focus, Constraints, What Makes a Good Opportunity) are always required. Additional sections should only appear when they emerge naturally from the domain context — don't force them.
 
-Be concise — this file guides infinite brainstorming exploration. Less is more.
+Be concise — this file guides infinite investment exploration. Less is more.
 
 ### Step 6: Confirm
 
 Tell the user the domain has been created and show the structure:
 - `ideate/<domain-name>/DESCRIPTION.md`
-- `ideate/<domain-name>/candidates/` (empty — ready for ideas)
+- `ideate/<domain-name>/candidates/` (empty — ready for opportunities)
 - `ideate/<domain-name>/verified/` (empty)
 - `ideate/<domain-name>/discarded/` (empty)
 

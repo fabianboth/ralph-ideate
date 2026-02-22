@@ -1,6 +1,6 @@
 ---
 name: ralph-ideate.explore
-description: Run the Ralph Ideate Loop - brainstorm, research, and evaluate ideas in a domain. Use when asked to explore or brainstorm ideas.
+description: Run the Ralph Ideate Loop - research, evaluate, and discover investment opportunities in a domain. Use when asked to explore or brainstorm investments.
 argument-hint: @<domain-path> ["custom prompt"] [--max-iterations N]
 allowed-tools: Read, Write, Edit, Bash, WebSearch, WebFetch, Glob, Grep
 disable-model-invocation: true
@@ -11,22 +11,24 @@ hooks:
           command: bash .claude/skills/ralph-ideate.explore/scripts/loop-context.sh
 ---
 
-## Ralph Ideate - Automated Brainstorming Loop
+## Ralph Ideate - Automated Investment Research Loop
 
-You are running the Ralph Ideate Loop: an automated brainstorming cycle that evolves idea brainstorming into valid business opportunities. Your goal is not just to process candidates through phases, but to **persistently explore, find new angles, and push ideas toward viability** — even across 100+ iterations. Keep the creative momentum alive: explore new sectors, shift focus occasionally, revive discarded ideas from fresh perspectives, and resist converging too early.
+You are running the Ralph Ideate Loop: an automated research cycle that evolves investment brainstorming into validated opportunities. Your goal is not just to process candidates through phases, but to **persistently explore, find new angles, and push opportunities toward validation** — even across 100+ iterations. Keep the research momentum alive: explore new sectors, shift between asset classes and bet types, revisit passed opportunities from fresh angles, and resist converging too early.
+
+This loop supports all investment types: traditional assets (stocks, ETFs, bonds, commodities), crypto, and prediction markets (Polymarket, Kalshi, etc.). The DESCRIPTION.md for each domain steers the focus — the phases below apply universally.
 
 **IMPORTANT - Context management**: This loop runs for many iterations. To avoid hitting context limits:
 - **Do NOT spawn subagents** (no Task tool). Do all research, writing, and evaluation inline in the main conversation. Subagent results accumulate in context and cause blowouts.
-- **Read efficiently**: For `verified/` and `discarded/`, list filenames with Glob to know what exists, but only read files when you specifically need their content (e.g., checking if an idea was already tried). Don't re-read every file every iteration.
-- **Keep iterations focused**: Research 2-6 ideas per iteration — enough to make progress but not so many that context bloats.
+- **Read efficiently**: For `verified/` and `discarded/`, list filenames with Glob to know what exists, but only read files when you specifically need their content (e.g., checking if an opportunity was already evaluated). Don't re-read every file every iteration.
+- **Keep iterations focused**: Research 2-6 opportunities per iteration — enough to make progress but not so many that context bloats.
 
 ### First: Initialize the Loop
 
-**IMPORTANT - ALWAYS run the setup script**: You MUST run the setup script on EVERY invocation — even if this skill ran before in this conversation, even if verified/discarded ideas already exist, and even if you believe exploration is "complete". Never skip initialization or summarize prior results instead of starting the loop.
+**IMPORTANT - ALWAYS run the setup script**: You MUST run the setup script on EVERY invocation — even if this skill ran before in this conversation, even if verified/discarded opportunities already exist, and even if you believe exploration is "complete". Never skip initialization or summarize prior results instead of starting the loop.
 
 Parse `$ARGUMENTS` to extract:
-- **Domain path**: The first non-flag, non-quoted argument (e.g., `ideate/saas-tools`). Users may use the `@` prefix for autocomplete — strip any leading `@` from the path.
-- **Custom prompt** (optional): A quoted string providing brainstorming focus (e.g., `"Focus on B2B developer tools"`)
+- **Domain path**: The first non-flag, non-quoted argument (e.g., `ideate/tech-growth-stocks`). Users may use the `@` prefix for autocomplete — strip any leading `@` from the path.
+- **Custom prompt** (optional): A quoted string providing research focus (e.g., `"Focus on renewable energy ETFs"` or `"Find mispriced Polymarket bets on US politics"`)
 - **--max-iterations N** (optional): Maximum number of iterations (default: 20)
 
 Run the setup script with the extracted values:
@@ -47,9 +49,9 @@ Then proceed with the first iteration below.
 **Step 1: Read Current State**
 
 1. Read `<domain>/DESCRIPTION.md` - understand scope, focus, constraints, and what makes a good opportunity
-2. List and read all files in `<domain>/candidates/` - ideas under evaluation (these are your active work)
+2. List and read all files in `<domain>/candidates/` - opportunities under evaluation (these are your active work)
 3. List filenames in `<domain>/verified/` - know what's already been verified (only read specific files if needed for context)
-4. List filenames in `<domain>/discarded/` - know what's been rejected to avoid repeating (only read specific files if you need to check a particular rejection reason)
+4. List filenames in `<domain>/discarded/` - know what's been passed on to avoid repeating (only read specific files if you need to check a particular pass reason)
 
 **Domain Description Updates**: If the user explicitly requests changes to the domain description (e.g., "update the description to...", "add a constraint about...", "the description should mention..."), update `<domain>/DESCRIPTION.md` accordingly and report the change in the iteration summary. Only update when explicitly asked — do not proactively modify the description based on observed patterns.
 
@@ -58,102 +60,152 @@ Then proceed with the first iteration below.
 Based on the current state, decide what to do this iteration:
 
 - **No or few candidates** → Go to **Phase 1: Ideation**
-- **Candidates exist without "Pain Point Evidence" section** → Go to **Phase 2: Research**
+- **Candidates exist without "Market Evidence" section** → Go to **Phase 2: Research**
 - **Candidates have research but haven't been critically evaluated** → Go to **Phase 3: Creativity & Pivoting** or **Phase 4: Scrutiny**
 - **Candidates have been scrutinized** → Go to **Phase 5: Decision**
-- **Mix of states** → Prioritize: research unresearched candidates first, then scrutinize researched ones, then generate new ideas to keep the pipeline full
+- **Mix of states** → Prioritize: research unresearched candidates first, then scrutinize researched ones, then generate new opportunities to keep the pipeline full
 
-A good iteration touches multiple phases - generate some new ideas AND research/scrutinize existing ones. Don't only do one thing.
+A good iteration touches multiple phases - generate some new opportunities AND research/scrutinize existing ones. Don't only do one thing.
 
 ---
 
 ## Phase 1: Ideation
 
-Generate 3-5 new candidate ideas. Create a markdown file for each in `<domain>/candidates/`.
+Generate 3-5 new candidate opportunities. Create a markdown file for each in `<domain>/candidates/`.
 
-**File naming**: `kebab-case-idea-name.md`
+**File naming**: `kebab-case-opportunity-name.md`
 
 **File format**:
 ```markdown
-# <Idea Name>
+# <Opportunity Name>
 
-<Brief description of the core concept - what does this do?>
+<Brief description of the opportunity — what is it and why might it be interesting?>
 
-## Hypothesized Pain Point
+## Investment Thesis
 
-<What specific problem does this solve? Who experiences it? Be specific.>
+<What specific thesis drives this opportunity? Be specific about the mechanism.>
 
-## Target Market
+For traditional assets: "AI adoption driving 30%+ revenue growth in enterprise software" — not just "AI is growing"
+For prediction markets: "Current odds imply 25% probability, but polling + historical base rates suggest 45%" — not just "I think YES wins"
 
-<Who are the customers? B2B/B2C? Industry? Size?>
+## Market / Platform
+
+<Where does this opportunity live?>
+
+For traditional assets: "US large-cap tech equity", "European commercial REIT", "Commodity futures — lithium"
+For prediction markets: "Polymarket — US Politics", "Kalshi — Fed rate decision", "Polymarket — Tech/Science"
+
+## Expected Return Driver
+
+<What causes the payoff?>
+
+For traditional assets: "Revenue growth from AI adoption", "Yield compression in rising rate environment"
+For prediction markets: "Probability mispricing — market at 25%, estimated fair value 45% based on [specific evidence]", "Catalyst: upcoming earnings report on March 15 likely to resolve this"
 ```
 
 **Creativity guidelines**:
-- Explore new sectors, interpolate between existing ideas, try new angles
-- Extrapolate to adjacent markets and near-term trends
-- Avoid iterating on the same idea space - use creative techniques to think outside the box
-- Check `discarded/` before creating - don't repeat rejected ideas (you may re-evaluate from a genuinely different angle, but don't rehash the same concept)
+- Explore across investment types — don't stick to one area. Mix traditional assets, prediction markets, and crypto
+- For traditional assets: consider equities, ETFs, REITs, bonds, commodities, alternatives
+- For prediction markets: scan active markets on Polymarket/Kalshi for mispriced contracts across politics, geopolitics, economics, tech, sports, culture
+- Extrapolate from macro trends, upcoming events, sector rotations, and emerging dynamics
+- Mix time horizons: short-term event catalysts, medium-term growth stories, long-term structural trends
+- For prediction markets, look for: upcoming events with predictable catalysts, markets where public sentiment diverges from data, low-liquidity markets where edge is easier to find
+- Check `discarded/` before creating - don't repeat passed opportunities (you may re-evaluate from a genuinely different angle, but don't rehash the same thesis)
 
 ---
 
 ## Phase 2: Research
 
-For each candidate that lacks a "Pain Point Evidence" section, conduct web research to validate the pain point.
+For each candidate that lacks a "Market Evidence" section, conduct web research to validate the thesis.
 
-**Core principle: Verified Pain Points First**
+**Core principle: Data-Backed Thesis Validation**
 
-An idea is only valuable if it solves a real pain point - and "real" means **verified through research**, not assumed. Ask:
-- Is this pain point verified? (Evidence of real people experiencing this?)
-- Is it urgent? (Do they need it solved now?)
-- Is it frequent? (Happens often enough to matter?)
-- Are people already paying to solve it?
+An opportunity is only worth pursuing if the thesis is **supported by real data** — not assumptions, hype, or gut feelings. The type of evidence depends on the opportunity:
 
-**Strong evidence (prioritize these):**
-- Forum complaints, Reddit threads, or community discussions where people describe the problem *in their own words*
-- App store reviews mentioning frustration with existing solutions or gaps
-- Negative reviews of competitors that highlight unmet needs
-- Social media posts, tweets, or LinkedIn discussions about the struggle
-- Job postings that hint at manual workarounds or inefficiencies
+### For Traditional Assets
 
-**Gut feelings and assumptions are not validation.** If you can't find real people complaining about this problem, the pain point is hypothetical. However, research often reveals *adjacent* pain points that ARE real — be open to rescoping around verified problems rather than forcing a hypothesis with no evidence.
+Ask:
+- Is this thesis supported by financial data? (Revenue growth, earnings trends, market share gains?)
+- Is the timing right? (Are we early, on time, or late to this trend?)
+- Is the risk/reward favorable? (What's the downside if the thesis is wrong?)
+- Are institutional investors or smart money already positioned here?
+
+**Strong evidence:**
+- Financial metrics: revenue growth rates, earnings beats, margin expansion, cash flow trends
+- Market data: sector performance vs benchmarks, relative valuations, historical comparisons
+- Analyst coverage: consensus estimates, price targets, upgrade/downgrade trends
+- Institutional activity: fund flows, 13F filings, insider buying/selling patterns
+- Macro indicators: interest rate trends, GDP data, employment figures relevant to the thesis
+
+### For Prediction Markets
+
+Ask:
+- What's the current market price (implied probability)? What probability do you estimate based on data?
+- Is there a quantifiable edge? (Your estimate minus market price)
+- What's the resolution criteria? When and how does this settle?
+- What upcoming events could shift the odds?
+- Is there enough liquidity to enter and exit at reasonable prices?
+
+**Strong evidence:**
+- Polling data, forecasting models, and expert predictions (e.g., FiveThirtyEight, Metaculus, expert consensus)
+- Historical base rates for similar events (e.g., "Incumbents win re-election 70% of the time in these conditions")
+- Scheduled catalysts with known dates (elections, earnings, policy announcements, court rulings)
+- Data that the market may be slow to price in (newly released polls, breaking developments, niche domain expertise)
+- Liquidity data: order book depth, trading volume, bid-ask spread on the contract
+
+### Universal Principles
+
+**Assumptions and hype are not validation.** If you can't find concrete data supporting the thesis, it's speculative. However, research often reveals *adjacent* opportunities that ARE data-backed — be open to pivoting the thesis around validated data rather than forcing a hypothesis with no evidence.
 
 **Weak evidence (supporting context only, never primary validation):**
-- Statistics that describe a condition but don't connect to the solution (e.g., "X million people have depression" does NOT validate demand for a depression chatbot)
-- Broad statistics that apply to many categories equally (e.g., "businesses waste time on admin")
-- "The market is $X billion" does NOT validate an opportunity — big markets have big competition
-- Industry reports without user voice — numbers don't prove people *want* your solution
-- Consultant/vendor marketing content describing problems (they have incentive to inflate pain)
+- "The market is $X billion" without connecting to why THIS specific opportunity captures value
+- Social media hype, influencer enthusiasm, or tribal sentiment without data backing
+- Broad macro trends that apply to many investments equally (e.g., "inflation is rising")
+- Vendor/promoter content without third-party validation (crypto whitepapers, company IR decks, campaign messaging)
+- Historical analogies without current data confirming the pattern repeats
+- For prediction markets: "I just feel like YES will win" or "everyone on Twitter thinks X"
 
-**The key test**: Can you find **actual people** (not vendors, not consultants) **in their own words** describing this specific frustration?
+**The key test**: Can you find **concrete data** that directly supports a specific probability estimate or price thesis — not just a narrative?
 
 **Red flags that evidence is too weak:**
-- You can only find vendors describing the problem (not customers)
-- Statistics are so broad they'd apply to any solution
-- You're inferring pain from market size rather than user complaints
+- You can only find promoters/bulls describing the opportunity (no independent analysis)
+- The thesis relies entirely on a future event with no leading indicators
+- You're inferring opportunity from market size or sentiment rather than specific catalysts
+- All the "evidence" is narrative-driven with no numbers
+- For prediction markets: you can't articulate a specific probability estimate with reasoning
 
-**Use WebSearch** to find evidence. Search for Reddit threads, forum posts, review sites, social media discussions etc. related to the pain point.
+**Use WebSearch** to find evidence. Search for financial data, analyst reports, polling data, forecasting models, prediction market odds, event calendars, and relevant publications.
 
-Add a **Pain Point Evidence** section to the idea file:
+Add a **Market Evidence** section to the opportunity file:
 ```markdown
-## Pain Point Evidence
+## Market Evidence
 
-- "<Direct quote or paraphrased complaint>" - [Source](url)
-- "<Another user complaint>" - [Source](url)
-- Volume: <indicator, e.g., "50+ Reddit threads", "common 1-star review theme">
+- "<Key data point or trend>" - [Source](url)
+- "<Financial metric, polling result, or probability estimate>" - [Source](url)
+- Edge estimate: <for prediction markets: "Market at X%, estimated fair value Y% based on [reasoning]">
+- Trend strength: <for traditional: "consistent 15% YoY revenue growth over 5 quarters">
 ```
 
-**If the original pain point can't be verified:**
-- Look for adjacent or related pain points that ARE real
-- Consider rescoping the idea around a verified pain point
+**If the original thesis can't be validated:**
+- Look for adjacent or related theses that ARE data-backed
+- Consider pivoting the asset class, time horizon, investment vehicle, or market
+- For prediction markets: check if the opposite position has better evidence, or if a related market is more mispriced
 - If a viable pivot exists, revise and note it for Phase 3
 
-**Competitive Landscape** (after pain point is validated):
-- Does something similar already exist?
-- What's the competitive landscape?
-- Are there failed attempts? Why did they fail?
-- **If competitors exist, try harder**: Competition validates demand but doesn't automatically disqualify an idea. Look for underserved segments, unmet needs, or gaps. Try different angles — different perspectives, business models, niches. But any differentiation must be validated with research, not assumed.
+**Risk Assessment** (after thesis is validated):
 
-Add a **Research Notes** section with competitive findings.
+For traditional assets:
+- What's the competitive positioning? (Moat strength, market share trends)
+- What are the key risks? (Regulatory, competitive, macro, execution)
+- What's the downside scenario? How bad can it get?
+
+For prediction markets:
+- What could make your probability estimate wrong? What's the bear case against your position?
+- How does this contract resolve? Is there ambiguity in the resolution criteria?
+- What's the liquidity like? Can you actually get in/out at the current price?
+- What's the maximum loss? (Usually capped at your stake for binary contracts)
+
+Add a **Research Notes** section with risk and context findings.
 
 ---
 
@@ -161,16 +213,17 @@ Add a **Research Notes** section with competitive findings.
 
 Based on research findings, explore creative angles:
 
-- **Pain point pivots**: Can unverified ideas be reframed around a related REAL pain point?
-- **Better solutions**: Can verified pain points be solved in a fundamentally better way?
-- **Scope shifts**: Should we narrow (niche) or expand (platform)?
-- **Gap bridging**: Are there underserved segments or unmet needs?
-- **Business model innovation**: Could a different model create an advantage?
-- **Combining ideas**: Can two weak ideas merge into one strong one?
+- **Thesis pivots**: Can unsupported theses be reframed around validated data from a different angle?
+- **Vehicle shifts**: Would a different instrument capture the same thesis better? (e.g., equity → ETF, stock → prediction market bet on the same event, long position → hedged pair)
+- **Cross-market arbitrage**: Does the same thesis appear mispriced differently on Polymarket vs Kalshi, or prediction market vs stock market?
+- **Sector/category rotation**: Can insights from one area inform opportunities in an adjacent one?
+- **Time horizon shifts**: Is the thesis better suited to a different time frame or contract expiry?
+- **Risk/reward optimization**: Can we capture similar upside with better downside protection? Can we find the same edge at better odds?
+- **Combining theses**: Can two weak opportunities merge into one stronger composite position or hedged strategy?
 
-This phase may generate new candidates or transform existing ones. Updated ideas should cycle back through Research to validate new hypotheses.
+This phase may generate new candidates or transform existing ones. Updated opportunities should cycle back through Research to validate new theses.
 
-**Avoid pattern lock-in**: Don't over-rely on patterns from previously verified ideas. Each idea should be evaluated on its own merits. Past successes (or failures) are useful heuristics but shouldn't constrain creative exploration. A new idea might succeed through a completely different model than existing verified ideas — be open to ideas that break the mold if they have strong pain point evidence.
+**Avoid pattern lock-in**: Don't over-rely on patterns from previously verified opportunities. Each opportunity should be evaluated on its own merits. A new opportunity might succeed through a completely different thesis than existing verified ones — be open to ideas that break the mold if they have strong data backing.
 
 ---
 
@@ -178,14 +231,25 @@ This phase may generate new candidates or transform existing ones. Updated ideas
 
 Critically evaluate each researched candidate:
 
-- **Is the pain point verified?** (Must have documented evidence from Phase 2)
-  - If not and can't pivot: prepare to discard
-- Is the problem significant enough to pay for?
-- Is the proposed solution viable?
-- What are the major risks and blockers?
-- Does this differentiate from existing solutions?
+**Universal criteria:**
+- **Is the thesis data-backed?** (Must have documented evidence from Phase 2)
+  - If not and can't pivot: prepare to pass
+- Is the risk/reward ratio favorable? What's the realistic upside vs downside?
+- Is the timing right? Are we early enough to capture the opportunity?
+- Are there catalysts on the horizon that could accelerate or derail the thesis?
 
-**Be ruthless.** Most ideas should not survive this phase. An idea without a verified pain point should be discarded.
+**Additional for traditional assets:**
+- Does this have a competitive moat or structural advantage?
+- What's the downside protection? How much can you lose if the thesis is wrong?
+
+**Additional for prediction markets:**
+- Is the probability edge large enough to justify the position after accounting for fees and slippage?
+- Is there sufficient liquidity to enter at the current price? Will you be able to exit if needed?
+- Is the resolution criteria unambiguous? Could there be a dispute?
+- What's the time to resolution? Is your capital locked up too long relative to the edge?
+- Could new information before resolution eliminate your edge?
+
+**Be ruthless.** Most opportunities should not survive this phase. An opportunity without data-backed evidence should be passed on. For prediction markets, a "gut feeling" edge is not an edge.
 
 ---
 
@@ -195,28 +259,31 @@ For each scrutinized candidate, take one action:
 
 | Action | When | What to do |
 |--------|------|------------|
-| **Discard** | No verifiable pain point (even after pivots), fundamentally flawed, or solution already exists well | Move file to `discarded/`, add **Rejection Reason** section |
-| **Revise** | Original pain point unverified but adjacent pain point discovered, or needs refinement | Update the file with new angle, stays in `candidates/` for re-research |
-| **Verify** | Verified pain point AND passes all scrutiny | Move file to `verified/`, add **Verdict** section |
+| **Pass** | Thesis unsupported by data (even after pivots), unfavorable risk/reward, or edge too small | Move file to `discarded/`, add **Pass Reason** section |
+| **Revisit** | Original thesis unsupported but adjacent data-backed thesis discovered, or needs reframing | Update the file with new angle, stays in `candidates/` for re-research |
+| **Invest** | Data-backed thesis AND passes all scrutiny with favorable risk/reward | Move file to `verified/`, add **Investment Verdict** section |
 
 **Moving files**: Use bash `mv` to move between directories:
 ```bash
-mv "<domain>/candidates/idea-name.md" "<domain>/verified/idea-name.md"
-mv "<domain>/candidates/idea-name.md" "<domain>/discarded/idea-name.md"
+mv "<domain>/candidates/opportunity-name.md" "<domain>/verified/opportunity-name.md"
+mv "<domain>/candidates/opportunity-name.md" "<domain>/discarded/opportunity-name.md"
 ```
 
-**Rejection Reason format** (add to discarded files):
+**Pass Reason format** (add to discarded files):
 ```markdown
-## Rejection Reason
+## Pass Reason
 
-<Why this idea was rejected. Include: was the pain point unverified? Was the solution unviable? Did competitors already solve it?>
+<Why this opportunity was passed on. Include: was the thesis unsupported by data? Was risk/reward unfavorable? Was the edge too small? Was liquidity insufficient? Was timing wrong?>
 ```
 
-**Verdict format** (add to verified files):
+**Investment Verdict format** (add to verified files):
 ```markdown
-## Verdict
+## Investment Verdict
 
-<Why this idea is worth pursuing. Must reference verified pain point evidence and explain differentiation.>
+<Why this opportunity is worth pursuing. Must reference market evidence and explain the risk/reward profile.>
+
+For traditional assets: what data supports the thesis, what's the expected return driver, what's the downside scenario, and what catalysts could accelerate returns.
+For prediction markets: what's the estimated edge (your probability vs market price), what data supports your estimate, when does it resolve, and what position size is appropriate given the liquidity.
 ```
 
 ---
@@ -224,9 +291,9 @@ mv "<domain>/candidates/idea-name.md" "<domain>/discarded/idea-name.md"
 ### End of Iteration
 
 After completing your work for this iteration, summarize what you did:
-- New ideas generated
-- Ideas researched
-- Ideas verified/discarded/revised
+- New opportunities generated
+- Opportunities researched
+- Opportunities verified/passed/revisited
 - Current pipeline status (candidates remaining, verified count, discarded count)
 
 The stop hook will automatically feed the prompt back for the next iteration. Each iteration you will re-read the domain state fresh and continue the cycle.
