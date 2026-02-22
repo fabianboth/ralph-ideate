@@ -26,7 +26,7 @@ classifiers = [
     "Topic :: Software Development",
     "Typing :: Typed",
 ]
-dependencies = ["typer", "rich", "readchar"]
+dependencies = ["typer", "rich", "questionary"]
 
 [project.urls]
 Homepage = "https://github.com/fabianboth/ralph-ideate"

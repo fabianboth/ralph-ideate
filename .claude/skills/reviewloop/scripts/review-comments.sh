@@ -26,7 +26,7 @@ get_repo_info() {
 }
 
 get_current_user() {
-    gh api user -q '.login' 2>&1 || die "Failed to get current user"
+    gh api user -q '.login' 2>&1 | tr -d '\r' || die "Failed to get current user"
 }
 
 run_graphql() {
@@ -63,8 +63,8 @@ main() {
 
     local repo_info owner repo pr_number current_user
     repo_info=$(get_repo_info)
-    owner=$(echo "$repo_info" | jq -r '.owner.login')
-    repo=$(echo "$repo_info" | jq -r '.name')
+    owner=$(echo "$repo_info" | jq -r '.owner.login' | tr -d '\r')
+    repo=$(echo "$repo_info" | jq -r '.name' | tr -d '\r')
     pr_number=$(get_pr_number)
     current_user=$(get_current_user)
 
@@ -135,7 +135,7 @@ EOF
             while IFS= read -r thread; do
                 print_thread "$thread" "$is_first"
                 is_first=false
-            done < <(echo "$unresolved_threads" | jq -c '.[]')
+            done < <(echo "$unresolved_threads" | jq -c '.[]' | tr -d '\r')
         fi
 
         if [[ "$review_count" -gt 0 ]]; then
@@ -149,7 +149,7 @@ EOF
             while IFS= read -r review; do
                 print_review "$review" "$is_first"
                 is_first=false
-            done < <(echo "$review_bodies" | jq -c '.[]')
+            done < <(echo "$review_bodies" | jq -c '.[]' | tr -d '\r')
         fi
     } > .reviews/prComments.md
 
