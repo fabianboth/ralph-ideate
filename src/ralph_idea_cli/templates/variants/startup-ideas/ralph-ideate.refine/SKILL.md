@@ -1,13 +1,13 @@
 ---
 name: ralph-ideate.refine
-description: Refine and improve an investment brainstorming domain description. Reviews quality and applies targeted improvements.
+description: Refine and improve a brainstorming domain description. Reviews quality and applies targeted improvements.
 argument-hint: @<domain-path> [refinement instructions]
 allowed-tools: Read, Write, Edit, Glob, Grep
 ---
 
-## Refine an Investment Brainstorming Domain Description
+## Refine a Brainstorming Domain Description
 
-You are refining the DESCRIPTION.md of an existing Ralph Ideate investment brainstorming domain. Your job is to improve the domain description — either by applying specific changes the user requested, discussing the domain, or performing a full quality review.
+You are refining the DESCRIPTION.md of an existing Ralph Ideate brainstorming domain. Your job is to improve the domain description — either by applying specific changes the user requested, discussing the domain, or performing a full quality review.
 
 For **specific instructions**, apply changes directly. For **open-ended input or quality reviews**, present your findings and use clarification questions to align with the user before making changes.
 
@@ -17,7 +17,7 @@ The user provided: `$ARGUMENTS`
 
 - **If empty (no arguments at all)**: List available domains under `ideate/` using Glob to find all `ideate/*/DESCRIPTION.md` files. Show the list and ask the user to pick one.
 - **If domain path only** (e.g., `ideate/my-domain`): Perform a full quality review of that domain's description.
-- **If domain path + user input** (e.g., `ideate/my-domain add a constraint about risk tolerance` or `ideate/my-domain why are we passing on all opportunities`): Address the user's input in the steps below.
+- **If domain path + user input** (e.g., `ideate/my-domain add anti-patterns for partial automation` or `ideate/my-domain why are we discarding all ideas`): Address the user's input in the steps below.
 
 Extract:
 - **Domain path**: The first argument that looks like a path (contains `/` or starts with `ideate/`). Users may use the `@` prefix for autocomplete — strip any leading `@` from the path.
@@ -33,8 +33,8 @@ If the user asked a question, raised a discussion topic, or provided open-ended 
 
 ### Step 3: Apply Changes
 
-If the user provided **specific, direct instructions** (e.g., "add a constraint about maximum risk tolerance", "remove the macro indicators section"), apply them now. This might include:
-- Adding new sections (e.g., risk indicators, additional focus areas)
+If the user provided **specific, direct instructions** (e.g., "add a constraint about B2B focus", "remove the anti-patterns section"), apply them now. This might include:
+- Adding new sections (e.g., anti-patterns, additional focus areas)
 - Modifying existing criteria or constraints
 - Strengthening weak areas
 - Adding specificity to vague descriptions
@@ -48,13 +48,13 @@ If the input is open-ended, a question, or no input was provided, skip this step
 
 Check the description against these quality criteria:
 
-1. **Focus breadth**: Are focus areas broad enough to sustain 100+ iterations without becoming repetitive? Do they span multiple asset classes, strategies, or time horizons to open up diverse investment angles?
-2. **Constraint minimalism**: Are there only hard boundaries that truly matter? Too many constraints kill creativity — flag any that are "nice to have" rather than essential. Investment constraints should be about risk tolerance, regulatory limits, or asset class exclusions — not about style preferences.
-3. **Criteria clarity**: Do the quality criteria give a clear signal for strong vs weak investment opportunities without being an exhaustive checklist? Good criteria focus on thesis strength, data availability, and risk/reward profile.
+1. **Focus breadth**: Are focus areas broad enough to sustain 100+ iterations without becoming repetitive? Do they open up diverse angles rather than funneling into a narrow set?
+2. **Constraint minimalism**: Are there only hard boundaries that truly matter? Too many constraints kill creativity — flag any that are "nice to have" rather than essential.
+3. **Criteria clarity**: Do the quality criteria give a clear signal for strong vs weak ideas without being an exhaustive checklist?
 4. **Extra sections**: If domain-specific sections exist, do they emerge naturally from the domain context or are they forced? Flag any that don't clearly add value.
-5. **Overall balance**: Does the description provide enough direction for the loop to be productive, while leaving enough space for creative investment exploration across 100+ iterations? Can it sustain exploration across different asset classes, geographies, and time horizons?
+5. **Overall balance**: Does the description provide enough direction for the loop to be productive, while leaving enough space for creative exploration across 100+ iterations?
 
-If the user asked a question or raised a discussion topic, factor it into the review. For example, if they ask "why are we passing on all opportunities", consider whether the description's constraints are too narrow or the quality criteria too strict.
+If the user asked a question or raised a discussion topic, factor it into the review. For example, if they ask "why are we discarding all ideas", consider whether the description's constraints are too narrow or the quality criteria too strict.
 
 **For open-ended input or quality reviews**: Present your findings and observations to the user before making changes. Do not apply improvements unilaterally — use Step 5 to align on what to change.
 
@@ -64,7 +64,7 @@ Use interactive clarification questions to align with the user (maximum 5 total 
 
 - Present **one question at a time** — never reveal upcoming questions.
 - For multiple-choice questions (2-4 options):
-  - Analyze all options and determine the **most suitable option** based on best practices, investment breadth, and alignment with the domain context.
+  - Analyze all options and determine the **most suitable option** based on best practices, creative breadth, and alignment with the domain context.
   - Present your **recommended option prominently**: `**Recommended:** Option [X] - <reasoning>`
   - Then render all options as a Markdown table.
   - Add: `Reply with the option letter, accept the recommendation by saying "yes", or provide your own short answer.`

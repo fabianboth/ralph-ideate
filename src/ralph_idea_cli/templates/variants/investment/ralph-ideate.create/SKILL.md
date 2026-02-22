@@ -102,7 +102,7 @@ Tell the user the domain has been created and show the structure:
 Show the generated DESCRIPTION.md content so the user can review it.
 
 Output these next steps verbatim at the end:
-```
+```text
 Next steps:
 - /ralph-ideate.explore @ideate/<domain-name>
 - /ralph-ideate.refine @ideate/<domain-name>

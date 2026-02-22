@@ -17,16 +17,24 @@ class Variant:
     extra_templates: list[tuple[str, str]] = field(default_factory=_empty_templates)
 
 
+_VARIANT_SKILL_TEMPLATES: list[tuple[str, str]] = [
+    ("ralph-ideate.create/SKILL.md", ".claude/skills/ralph-ideate.create/SKILL.md"),
+    ("ralph-ideate.explore/SKILL.md", ".claude/skills/ralph-ideate.explore/SKILL.md"),
+    ("ralph-ideate.refine/SKILL.md", ".claude/skills/ralph-ideate.refine/SKILL.md"),
+]
+
 VARIANTS: list[Variant] = [
     Variant(
         id="startup-ideas",
         name="Startup Ideas",
         description="Brainstorm startup and business ideas",
+        extra_templates=_VARIANT_SKILL_TEMPLATES,
     ),
     Variant(
         id="investment",
         name="Investment",
         description="Brainstorm investment opportunities",
+        extra_templates=_VARIANT_SKILL_TEMPLATES,
     ),
 ]
 
