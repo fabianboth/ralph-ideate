@@ -85,6 +85,9 @@ def _install_skills(target_dir: Path, templates: Path, variant: Variant) -> list
     created = _install_templates(target_dir, templates, SHARED_TEMPLATE_TO_SKILL)
     if variant.extra_templates:
         variant_templates = templates / "variants" / variant.id
+        if not variant_templates.is_dir():
+            print(f"Error: variant templates not found: {variant_templates}")
+            raise typer.Exit(code=1)
         created += _install_templates(target_dir, variant_templates, variant.extra_templates)
     return created
 
